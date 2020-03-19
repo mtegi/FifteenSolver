@@ -2,6 +2,7 @@ import sys
 import re
 import datetime
 from BFS import BFS
+from DFS import DFS
 from State import State
 
 
@@ -19,7 +20,7 @@ class Fifteen:
         self.stats = str(args[4])
         self.solve()
 
-# rozwiaz ukladanke
+    # rozwiaz ukladanke
     def solve(self):
         init_state = State(read_state_from_file(self.input))
         if self.algo == 'bfs':
@@ -29,17 +30,23 @@ class Fifteen:
             end_time = datetime.datetime.now()
             save_to_file(self.output, self.stats, result, start_time, end_time)
         elif self.algo == 'dfs':
-            print()
+            dfs = DFS(init_state, self.param)
+            start_time = datetime.datetime.now()
+            result = dfs.find_solution()
+            end_time = datetime.datetime.now()
+            save_to_file(self.output, self.stats, result, start_time, end_time)
         elif self.algo == 'astr':
             print()
         else:
             print('Wrong algorithm')
+
 
 # wczytaj stan z pliku
 def read_state_from_file(file):
     f = open(file, 'r')
     data = re.split(' |\n', f.read())
     return [int(i) for i in data]
+
 
 # zapisz wyniki
 def save_to_file(result_file, stats_file, result, start_time, end_time):
