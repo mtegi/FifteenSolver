@@ -45,6 +45,7 @@ class Fifteen:
 def read_state_from_file(file):
     f = open(file, 'r')
     data = re.split(' |\n', f.read())
+    f.close()
     return [int(i) for i in data]
 
 
