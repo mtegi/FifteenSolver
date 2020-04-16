@@ -5,7 +5,7 @@ from Search_Algorithm import SearchAlgorithm
 class DFS(SearchAlgorithm):
     def __init__(self, initial_state, search_order):
         super().__init__(initial_state, search_order)
-        self.max_possible_depth = 20
+        self.max_possible_depth = 19
 
     def find_solution(self):
         # dopoki sa stany do sprawdzenie
