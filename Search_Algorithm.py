@@ -29,18 +29,27 @@ class SearchAlgorithm:
         # kolejnosc ruchow
         self.move_set = ''
         # stany odwiedzone
-        self.visited = 0
+        self.visited = 1
         # stany przetworzone
         self.processed = 0
 
-# czy znaleziono rozwiazanie?
+    # czy znaleziono rozwiazanie?
     def found_solution(self):
         if self.state.values == self.solution:
             return True
         else:
             return False
 
-# czy sie nie cofamy?
+    def is_solution(self, state):
+        if state.values == self.solution:
+            return True
+        else:
+            return False
+
+    def update_counters(self):
+        self.processed = len(self.explored)
+
+    # czy sie nie cofamy?
     def is_not_back_move(self, direction):
         try:
             last_move = self.move_set[-1]
@@ -53,7 +62,7 @@ class SearchAlgorithm:
             return False
         return True
 
-# wygeneruj sasiednie stany
+    # wygeneruj sasiednie stany
     def generate_next_states(self):
         new_states = []
         for direction in self.search_order:
