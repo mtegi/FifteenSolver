@@ -5,13 +5,13 @@ from State import State
 
 
 # wygeneruj poprawna ukladanke w zaleznosci od podanych wymiarow (np 4x4)
-def generate_solution(width, height):
+def generate_solution(width: int, height: int) -> np.ndarray:
     ret = np.reshape(np.array([i for i in range(1, (width * height) + 1)]), (width, height))
     ret[width - 1][height - 1] = 0
     return ret
 
 
-def is_not_back_move(state, direction):
+def is_not_back_move(state: State, direction: str) -> bool:
     try:
         last_move = state.move_set[-1]
     except IndexError:
@@ -24,7 +24,7 @@ def is_not_back_move(state, direction):
     return True
 
 
-def can_move(state, direction):
+def can_move(state: State, direction: str) -> bool:
     if (state.zero_index[0] == 0 and direction == 'u') \
             or (state.zero_index[0] == state.height - 1 and direction == 'd') \
             or (state.zero_index[1] == 0 and direction == 'l') \
@@ -33,7 +33,7 @@ def can_move(state, direction):
     return True
 
 
-def generate_new_state(state, direction):
+def generate_new_state(state: State, direction: str) -> State:
     values = deepcopy(state.values)
     depth = state.depth
     zero_index = [state.zero_index[0], state.zero_index[1]]
@@ -58,7 +58,7 @@ def generate_new_state(state, direction):
 
 
 class SearchAlgorithm:
-    def __init__(self, initial_state, search_order):
+    def __init__(self, initial_state: State, search_order: str):
         self.state = initial_state
         self.solution = generate_solution(initial_state.width, initial_state.height)
         self.frontier = deque([initial_state])
@@ -69,5 +69,5 @@ class SearchAlgorithm:
         self.visited = 1
         self.processed = 0
 
-    def is_solution(self, state):
+    def is_solution(self, state: State) -> bool:
         return (state.values == self.solution).all()

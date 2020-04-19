@@ -1,15 +1,15 @@
 import sys
 import re
 from timeit import default_timer as timer
+from typing import Tuple
+
 from BFS import BFS
 from DFS import DFS
 from State import State
 import numpy as np
-from numba import njit
 
 
-@njit
-def index(array, item):
+def index(array: np.ndarray, item: int) -> Tuple[int, int]:
     for idx, val in np.ndenumerate(array):
         if val == item:
             return idx
@@ -48,12 +48,12 @@ class Fifteen:
             print('Wrong algorithm')
 
 
-def get_time(start, end):
+def get_time(start: float, end: float) -> float:
     time_in_seconds = end - start
     return round(time_in_seconds * 1000, 3)
 
 
-def read_state_from_file(file):
+def read_state_from_file(file: str):
     f = open(file, 'r')
     data = re.split(' |\n', f.read())
     if data[-1] == '':
@@ -62,7 +62,7 @@ def read_state_from_file(file):
     return [int(i) for i in data]
 
 
-def save_to_file(result_file, stats_file, result, time_lapsed):
+def save_to_file(result_file: str, stats_file: str, result: Tuple[str, int, int, int], time_lapsed: float) -> None:
     f = open(result_file, 'w')
     f.write("".join([str(len(result[0])), '\n', result[0]]))
     f.close()

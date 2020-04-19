@@ -1,6 +1,10 @@
-class State:
+from typing import Tuple
+from numpy.core.multiarray import ndarray
 
-    def __init__(self, height, width, values, zero_index, depth, move_set):
+
+class State:
+    def __init__(self, height: int, width: int, values: ndarray,
+                 zero_index: Tuple[int, int], depth: int, move_set: str):
         self.height = height
         self.width = width
         self.values = values

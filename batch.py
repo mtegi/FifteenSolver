@@ -10,13 +10,13 @@ OUTPUT_DIR = "./output"
 STATISTICS_DIR = "./statistics"
 
 
-def make_dirs():
+def make_dirs() -> None:
     for o in search_orders:
         Path("".join([OUTPUT_DIR, '/', o])).mkdir(parents=True, exist_ok=True)
         Path("".join([STATISTICS_DIR, '/', o])).mkdir(parents=True, exist_ok=True)
 
 
-def calc(file):
+def calc(file: str) -> None:
     for o in search_orders:
         out = "".join([OUTPUT_DIR, '/', o, '/', file])
         stat = "".join([STATISTICS_DIR, '/', o, '/', file])
