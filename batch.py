@@ -5,26 +5,30 @@ from pathlib import Path
 import os
 
 search_orders = ["rdul", "rdlu", "drul", "drlu", "ludr", "lurd", "uldr", "ulrd"]
+PUZZLE_DIR = "./puzzles"
+OUTPUT_DIR = "./output"
+STATISTICS_DIR = "./statistics"
 
 
 def make_dirs():
     for o in search_orders:
-        Path("./output/" + o).mkdir(parents=True, exist_ok=True)
-        Path("./statistics/" + o).mkdir(parents=True, exist_ok=True)
+        Path("".join([OUTPUT_DIR, '/', o])).mkdir(parents=True, exist_ok=True)
+        Path("".join([STATISTICS_DIR, '/', o])).mkdir(parents=True, exist_ok=True)
 
 
 def calc(file):
     for o in search_orders:
-        out = "./output/" + o + '/' + file
-        stat = "./statistics/" + o + '/' + file
-        Fifteen(["bfs", o, "./puzzles/" + file, out, stat])
+        out = "".join([OUTPUT_DIR, '/', o, '/', file])
+        stat = "".join([STATISTICS_DIR, '/', o, '/', file])
+        in_ = "".join([PUZZLE_DIR, '/', file])
+        Fifteen(["bfs", o, in_, out, stat])
 
 
 if __name__ == '__main__':
     make_dirs()
     start = time.time()
     print("Running script...")
-    files = [f for f in os.listdir("./puzzles") if f.endswith(".txt")]
+    files = [f for f in os.listdir(PUZZLE_DIR) if f.endswith(".txt")]
     pool = multiprocessing.Pool()
     pool.map(calc, files)
     pool.close()

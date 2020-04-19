@@ -35,6 +35,7 @@ def can_move(state, direction):
 
 def generate_new_state(state, direction):
     values = deepcopy(state.values)
+    depth = state.depth
     zero_index = [state.zero_index[0], state.zero_index[1]]
     if direction == 'l':
         values[zero_index[0]][zero_index[1]], values[zero_index[0]][zero_index[1] - 1] \
@@ -53,7 +54,7 @@ def generate_new_state(state, direction):
             = values[zero_index[0] + 1][zero_index[1]], values[zero_index[0]][zero_index[1]]
         zero_index[0] += 1
     return State(state.height, state.width, values, (zero_index[0], zero_index[1]),
-                 state.depth + 1, state.move_set.join(direction))
+                 depth + 1, state.move_set.join(direction))
 
 
 class SearchAlgorithm:

@@ -1,6 +1,3 @@
-from copy import deepcopy
-
-
 class State:
 
     def __init__(self, height, width, values, zero_index, depth, move_set):

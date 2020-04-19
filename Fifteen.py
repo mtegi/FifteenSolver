@@ -64,12 +64,12 @@ def read_state_from_file(file):
 
 def save_to_file(result_file, stats_file, result, time_lapsed):
     f = open(result_file, 'w')
-    f.write(len(result[0]).__str__() + '\n')
-    f.write(result[0])
+    f.write(str(len(result[0])).join(['\n', result[0]]))
     f.close()
     f = open(stats_file, 'w')
-    f.write(len(result[0]).__str__() + '\n' + result[2].__str__() +
-            '\n' + result[3].__str__() + '\n' + result[1].__str__() + '\n' + time_lapsed.__str__())
+    concat = [str(len(result[0])), '\n', str(result[2]), '\n', str(result[2]), '\n',
+              str(result[3]), '\n', str(result[1]), '\n', str(time_lapsed)]
+    f.write("".join(concat))
     f.close()
 
 
