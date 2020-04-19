@@ -41,7 +41,6 @@ def get_time(start, end):
     return round(time_in_seconds * 1000, 3)
 
 
-# wczytaj stan z pliku
 def read_state_from_file(file):
     f = open(file, 'r')
     data = re.split(' |\n', f.read())
@@ -51,7 +50,6 @@ def read_state_from_file(file):
     return [int(i) for i in data]
 
 
-# zapisz wyniki
 def save_to_file(result_file, stats_file, result, time_lapsed):
     f = open(result_file, 'w')
     f.write(len(result[0]).__str__() + '\n')
