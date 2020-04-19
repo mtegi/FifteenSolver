@@ -20,3 +20,6 @@ class State:
         if hash(self.values.tobytes()) != hash(other.values.tobytes()):
             return True
         return False
+
+    def __hash__(self):
+        return hash(self.values.tobytes())

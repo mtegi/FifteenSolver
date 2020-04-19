@@ -24,7 +24,6 @@ class Fifteen:
         self.stats = str(args[4])
         self.solve()
 
-    # rozwiaz ukladanke
     def solve(self):
         data = read_state_from_file(self.input)
         height = data[0]

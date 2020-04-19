@@ -61,7 +61,7 @@ class SearchAlgorithm:
         self.state = initial_state
         self.solution = generate_solution(initial_state.width, initial_state.height)
         self.frontier = deque([initial_state])
-        self.explored = deque()
+        self.explored = set()
         self.max_depth = 0
         self.search_order = search_order
         self.move_set = ''
