@@ -54,7 +54,7 @@ def generate_new_state(state, direction):
             = values[zero_index[0] + 1][zero_index[1]], values[zero_index[0]][zero_index[1]]
         zero_index[0] += 1
     return State(state.height, state.width, values, (zero_index[0], zero_index[1]),
-                 depth + 1, state.move_set.join(direction))
+                 depth + 1, "".join([state.move_set, direction]))
 
 
 class SearchAlgorithm:

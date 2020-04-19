@@ -64,7 +64,7 @@ def read_state_from_file(file):
 
 def save_to_file(result_file, stats_file, result, time_lapsed):
     f = open(result_file, 'w')
-    f.write(str(len(result[0])).join(['\n', result[0]]))
+    f.write("".join([str(len(result[0])), '\n', result[0]]))
     f.close()
     f = open(stats_file, 'w')
     concat = [str(len(result[0])), '\n', str(result[2]), '\n', str(result[2]), '\n',
