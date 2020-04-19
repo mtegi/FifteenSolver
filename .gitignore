@@ -209,3 +209,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+.statistics/
+.output./

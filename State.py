@@ -1,6 +1,5 @@
 from copy import deepcopy
 
-
 def index_2d(data, search):
     for i, e in enumerate(data):
         try:
