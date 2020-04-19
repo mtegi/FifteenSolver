@@ -4,6 +4,15 @@ from timeit import default_timer as timer
 from BFS import BFS
 from DFS import DFS
 from State import State
+import numpy as np
+from numba import njit
+
+
+@njit
+def index(array, item):
+    for idx, val in np.ndenumerate(array):
+        if val == item:
+            return idx
 
 
 class Fifteen:
@@ -17,7 +26,11 @@ class Fifteen:
 
     # rozwiaz ukladanke
     def solve(self):
-        init_state = State(read_state_from_file(self.input))
+        data = read_state_from_file(self.input)
+        height = data[0]
+        width = data[1]
+        values = np.reshape(np.array(data[2:]), (height, width,))
+        init_state = State(height, width, values, index(values, 0), 1, "")
         if self.algo == 'bfs':
             bfs = BFS(init_state, self.param)
             start_time = timer()

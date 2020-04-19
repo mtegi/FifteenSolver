@@ -1,4 +1,4 @@
-from Search_Algorithm import SearchAlgorithm
+from Search_Algorithm import SearchAlgorithm, can_move, is_not_back_move, generate_new_state
 
 
 class BFS(SearchAlgorithm):
@@ -9,8 +9,8 @@ class BFS(SearchAlgorithm):
             self.state = self.frontier.pop()
             self.processed += 1
             for direction in self.search_order:
-                if self.state.can_move(direction) and self.is_not_back_move(direction):
-                    neighbour = self.state.generate_new_state(direction)
+                if can_move(self.state, direction) and is_not_back_move(self.state, direction):
+                    neighbour = generate_new_state(self.state, direction)
                     if self.is_solution(neighbour):
                         self.visited += 1
                         return neighbour.move_set, len(neighbour.move_set), self.visited, self.processed
