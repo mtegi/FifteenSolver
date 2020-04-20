@@ -1,12 +1,14 @@
 from collections import deque
 from copy import deepcopy
 import numpy as np
+cimport numpy as np
 from State import State
-
+DTYPE = np.int
+ctypedef np.int_t DTYPE_t
 
 # wygeneruj poprawna ukladanke w zaleznosci od podanych wymiarow (np 4x4)
-def generate_solution(width: int, height: int) -> np.ndarray:
-    ret = np.reshape(np.array([i for i in range(1, (width * height) + 1)]), (width, height))
+cdef np.ndarray generate_solution(int width, int height):
+    ret = np.reshape(np.array([i for i in range(1, (width * height) + 1)], dtype=DTYPE), (width, height))
     ret[width - 1][height - 1] = 0
     return ret
 

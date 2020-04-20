@@ -1,10 +1,12 @@
-from typing import Tuple
-from numpy.core.multiarray import ndarray
+cimport numpy as np
 
+cdef class State:
+    cdef readonly int width, height, depth
+    cdef readonly str move_set
+    cdef readonly np.ndarray values
+    cdef readonly (int, int) zero_index
 
-class State:
-    def __init__(self, height: int, width: int, values: ndarray,
-                 zero_index: Tuple[int, int], depth: int, move_set: str):
+    def __init__(self, int height, int width,np.ndarray values, (int, int)zero_index, int depth, str move_set):
         self.height = height
         self.width = width
         self.values = values

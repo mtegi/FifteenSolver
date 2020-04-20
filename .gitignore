@@ -211,3 +211,4 @@ dmypy.json
 
 .statistics/
 .output./
+*.c

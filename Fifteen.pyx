@@ -15,20 +15,20 @@ def index(array: np.ndarray, item: int) -> Tuple[int, int]:
             return idx
 
 
-def solve(args):
-    algo = str(args[0])
-    param = str(args[1]).lower()
-    input_file = str(args[2])
-    output_file = str(args[3])
-    stats_file = str(args[4])
+cpdef solve(args):
+    cdef str algo = str(args[0])
+    cdef str param = str(args[1]).lower()
+    cdef str input_file = str(args[2])
+    cdef str output_file = str(args[3])
+    cdef str stats_file = str(args[4])
     data = read_state_from_file(input_file)
-    height = data[0]
-    width = data[1]
+    cdef int height = data[0]
+    cdef int width = data[1]
     values = np.reshape(np.array(data[2:]), (height, width,))
     init_state = State(height, width, values, index(values, 0), 1, "")
     result = None
-    start_time = 0
-    end_time = 0
+    cdef float start_time = 0
+    cdef float end_time = 0
     if algo == 'bfs':
         bfs = BFS(init_state, param)
         start_time = timer()
@@ -46,12 +46,12 @@ def solve(args):
     save_to_file(output_file, stats_file, result, get_time(start_time, end_time))
 
 
-def get_time(start: float, end: float) -> float:
+cdef float get_time(float start, float end):
     time_in_seconds = end - start
     return round(time_in_seconds * 1000, 3)
 
 
-def read_state_from_file(file: str):
+cpdef read_state_from_file(str file):
     f = open(file, 'r')
     data = re.split(' |\n', f.read())
     if data[-1] == '':
@@ -60,7 +60,7 @@ def read_state_from_file(file: str):
     return [int(i) for i in data]
 
 
-def save_to_file(result_file: str, stats_file: str, result: Tuple[str, int, int, int], time_lapsed: float) -> None:
+cpdef save_to_file(result_file: str, stats_file: str, result: Tuple[str, int, int, int], time_lapsed: float):
     f = open(result_file, 'w')
     f.write("".join([str(len(result[0])), '\n', result[0]]))
     f.close()
