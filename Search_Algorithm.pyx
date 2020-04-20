@@ -2,7 +2,6 @@ from collections import deque
 from copy import deepcopy
 import numpy as np
 cimport numpy as np
-from libcpp cimport bool
 from State cimport State
 DTYPE = np.int
 ctypedef np.int_t DTYPE_t
