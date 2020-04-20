@@ -13,7 +13,7 @@ cdef np.ndarray generate_solution(int width, int height):
     return ret
 
 
-cpdef is_not_back_move(state: State, direction:str):
+cpdef is_not_back_move(State state, str direction):
     try:
         last_move = state.move_set[-1]
     except IndexError:
