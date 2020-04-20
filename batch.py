@@ -1,6 +1,6 @@
 import multiprocessing
 import time
-from Fifteen import Fifteen
+from Fifteen import solve
 from pathlib import Path
 import os
 
@@ -21,7 +21,7 @@ def calc(file: str) -> None:
         out = "".join([OUTPUT_DIR, '/', o, '/', file])
         stat = "".join([STATISTICS_DIR, '/', o, '/', file])
         in_ = "".join([PUZZLE_DIR, '/', file])
-        Fifteen(["bfs", o, in_, out, stat])
+        solve(["bfs", o, in_, out, stat])
 
 
 if __name__ == '__main__':

@@ -15,37 +15,35 @@ def index(array: np.ndarray, item: int) -> Tuple[int, int]:
             return idx
 
 
-class Fifteen:
-    def __init__(self, args):
-        self.algo = str(args[0])
-        self.param = str(args[1]).lower()
-        self.input = str(args[2])
-        self.output = str(args[3])
-        self.stats = str(args[4])
-        self.solve()
-
-    def solve(self):
-        data = read_state_from_file(self.input)
-        height = data[0]
-        width = data[1]
-        values = np.reshape(np.array(data[2:]), (height, width,))
-        init_state = State(height, width, values, index(values, 0), 1, "")
-        if self.algo == 'bfs':
-            bfs = BFS(init_state, self.param)
-            start_time = timer()
-            result = bfs.find_solution()
-            end_time = timer()
-            save_to_file(self.output, self.stats, result, get_time(start_time, end_time))
-        elif self.algo == 'dfs':
-            dfs = DFS(init_state, self.param)
-            start_time = timer()
-            result = dfs.find_solution()
-            end_time = timer()
-            save_to_file(self.output, self.stats, result, get_time(start_time, end_time))
-        elif self.algo == 'astr':
-            print()
-        else:
-            print('Wrong algorithm')
+def solve(args):
+    algo = str(args[0])
+    param = str(args[1]).lower()
+    input_file = str(args[2])
+    output_file = str(args[3])
+    stats_file = str(args[4])
+    data = read_state_from_file(input_file)
+    height = data[0]
+    width = data[1]
+    values = np.reshape(np.array(data[2:]), (height, width,))
+    init_state = State(height, width, values, index(values, 0), 1, "")
+    result = None
+    start_time = 0
+    end_time = 0
+    if algo == 'bfs':
+        bfs = BFS(init_state, param)
+        start_time = timer()
+        result = bfs.find_solution()
+        end_time = timer()
+    elif algo == 'dfs':
+        dfs = DFS(init_state, param)
+        start_time = timer()
+        result = dfs.find_solution()
+        end_time = timer()
+    elif algo == 'astr':
+        print()
+    else:
+        print('Wrong algorithm')
+    save_to_file(output_file, stats_file, result, get_time(start_time, end_time))
 
 
 def get_time(start: float, end: float) -> float:
@@ -77,4 +75,4 @@ if __name__ == "__main__":
     if len(sys.argv) != 6:
         print('Bledne argsy')
     else:
-        Fifteen(sys.argv[1:6])
+        solve(sys.argv[1:6])
