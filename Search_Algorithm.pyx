@@ -2,7 +2,8 @@ from collections import deque
 from copy import deepcopy
 import numpy as np
 cimport numpy as np
-from State import State
+from libcpp cimport bool
+from State cimport State
 DTYPE = np.int
 ctypedef np.int_t DTYPE_t
 
@@ -13,7 +14,7 @@ cdef np.ndarray generate_solution(int width, int height):
     return ret
 
 
-def is_not_back_move(state: State, direction: str) -> bool:
+cpdef is_not_back_move(state: State, direction:str):
     try:
         last_move = state.move_set[-1]
     except IndexError:
@@ -26,7 +27,7 @@ def is_not_back_move(state: State, direction: str) -> bool:
     return True
 
 
-def can_move(state: State, direction: str) -> bool:
+cpdef can_move(State state, str direction):
     if (state.zero_index[0] == 0 and direction == 'u') \
             or (state.zero_index[0] == state.height - 1 and direction == 'd') \
             or (state.zero_index[1] == 0 and direction == 'l') \
@@ -35,7 +36,7 @@ def can_move(state: State, direction: str) -> bool:
     return True
 
 
-def generate_new_state(state: State, direction: str) -> State:
+cpdef State generate_new_state(State state, str direction):
     values = deepcopy(state.values)
     depth = state.depth
     zero_index = [state.zero_index[0], state.zero_index[1]]
