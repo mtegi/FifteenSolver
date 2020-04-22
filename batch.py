@@ -1,5 +1,7 @@
 import multiprocessing
 import time
+from functools import partial
+
 from Fifteen import solve
 from pathlib import Path
 import os
@@ -8,29 +10,33 @@ search_orders = ["rdul", "rdlu", "drul", "drlu", "ludr", "lurd", "uldr", "ulrd"]
 PUZZLE_DIR = "./puzzles"
 OUTPUT_DIR = "./output"
 STATISTICS_DIR = "./statistics"
+algorithms = ["bfs", "dfs"]
 
 
 def make_dirs() -> None:
-    for o in search_orders:
-        Path("".join([OUTPUT_DIR, '/', o])).mkdir(parents=True, exist_ok=True)
-        Path("".join([STATISTICS_DIR, '/', o])).mkdir(parents=True, exist_ok=True)
+    for a in algorithms:
+        for o in search_orders:
+            Path("".join([OUTPUT_DIR, '/', a, '/', o])).mkdir(parents=True, exist_ok=True)
+            Path("".join([STATISTICS_DIR, '/', a, '/', o])).mkdir(parents=True, exist_ok=True)
 
 
-def calc(file: str) -> None:
+def calc(algo: str, file: str) -> None:
     for o in search_orders:
-        out = "".join([OUTPUT_DIR, '/', o, '/', file])
-        stat = "".join([STATISTICS_DIR, '/', o, '/', file])
+        out = "".join([OUTPUT_DIR, '/', algo, '/', o, '/', file])
+        stat = "".join([STATISTICS_DIR, '/', algo, '/', o, '/', file])
         in_ = "".join([PUZZLE_DIR, '/', file])
-        solve(["bfs", o, in_, out, stat])
+        solve([algo, o, in_, out, stat])
 
 
 if __name__ == '__main__':
     make_dirs()
-    start = time.time()
-    print("Running script...")
+    print("Starting...")
     files = [f for f in os.listdir(PUZZLE_DIR) if f.endswith(".txt")]
-    pool = multiprocessing.Pool()
-    pool.map(calc, files)
-    pool.close()
-    print('Time: {} sec '.format(time.time() - start))
-
+    for a in algorithms:
+        print("".join(['Doing ', a]))
+        start = time.time()
+        pool = multiprocessing.Pool()
+        pool.map(partial(calc, a), files)
+        pool.close()
+        print('Time: {} sec '.format(time.time() - start))
+    exit(0)

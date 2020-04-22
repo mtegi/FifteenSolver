@@ -1,13 +1,12 @@
-import sys
 import re
 from timeit import default_timer as timer
 from typing import Tuple
 
+import numpy as np
+
 from BFS import BFS
 from DFS import DFS
 from State import State
-import numpy as np
-
 
 def index(array: np.ndarray, item: int) -> Tuple[int, int]:
     for idx, val in np.ndenumerate(array):
@@ -48,7 +47,7 @@ cpdef solve(args):
 
 cdef float get_time(float start, float end):
     time_in_seconds = end - start
-    return round(time_in_seconds * 1000, 3)
+    return time_in_seconds * 1000
 
 
 cpdef read_state_from_file(str file):
@@ -66,13 +65,9 @@ cpdef save_to_file(result_file: str, stats_file: str, result: Tuple[str, int, in
     f.close()
     f = open(stats_file, 'w')
     concat = [str(len(result[0])), '\n', str(result[2]), '\n', str(result[2]), '\n',
-              str(result[3]), '\n', str(result[1]), '\n', str(time_lapsed)]
+              str(result[3]), '\n', str(result[1]), '\n', format(time_lapsed,'.3f')]
     f.write("".join(concat))
     f.close()
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 6:
-        print('Bledne argsy')
-    else:
-        solve(sys.argv[1:6])
+
