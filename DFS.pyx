@@ -13,7 +13,6 @@ class DFS(SearchAlgorithm):
         while self.frontier.__len__() > 0:
             # zdejmij stan
             self.state = self.frontier.pop()
-            print(self.state.depth)
             self.processed += 1
             # sprawdz maks glebokosc
             if self.max_depth < self.state.depth:

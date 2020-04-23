@@ -4,6 +4,7 @@ from typing import Tuple
 
 import numpy as np
 
+from AStar import AStar
 from BFS import BFS
 from DFS import DFS
 from State import State
@@ -39,7 +40,10 @@ cpdef solve(args):
         result = dfs.find_solution()
         end_time = timer()
     elif algo == 'astr':
-        print()
+        astr = AStar(init_state, param)
+        start_time = timer()
+        result = astr.find_solution()
+        end_time = timer()
     else:
         print('Wrong algorithm')
     save_to_file(output_file, stats_file, result, get_time(start_time, end_time))

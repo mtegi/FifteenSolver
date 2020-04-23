@@ -18,5 +18,8 @@ cdef class State:
             return True
         return False
 
+    def __lt__(self, other):
+        return False
+
     def __hash__(self):
         return hash(self.values.tobytes())
