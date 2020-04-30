@@ -44,6 +44,12 @@ if __name__ == '__main__':
     make_dirs()
     print("Starting...")
     files = [f for f in os.listdir(PUZZLE_DIR) if f.endswith(".txt")]
+    print("Doing A*")
+    start = time.time()
+    pool = multiprocessing.Pool()
+    pool.map(partial(calcAstr, "astr"), files)
+    pool.close()
+    print('Time: {} sec '.format(time.time() - start))
     for a in algorithms:
         print("".join(['Doing ', a]))
         start = time.time()

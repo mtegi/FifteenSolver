@@ -16,5 +16,5 @@ class BFS(SearchAlgorithm):
                         return neighbour.move_set, len(neighbour.move_set), self.visited, self.processed
                     elif neighbour.__hash__() not in self.explored:
                         self.visited += 1
-                        self.frontier.append(neighbour)
+                        self.frontier.appendleft(neighbour)
             self.explored.add(self.state.__hash__())
