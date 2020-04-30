@@ -7,6 +7,7 @@ from pathlib import Path
 import os
 
 search_orders = ["rdul", "rdlu", "drul", "drlu", "ludr", "lurd", "uldr", "ulrd"]
+heuristics = ["manh", "hamm"]
 PUZZLE_DIR = "./puzzles"
 OUTPUT_DIR = "./output"
 STATISTICS_DIR = "./statistics"
@@ -18,6 +19,9 @@ def make_dirs() -> None:
         for o in search_orders:
             Path("".join([OUTPUT_DIR, '/', a, '/', o])).mkdir(parents=True, exist_ok=True)
             Path("".join([STATISTICS_DIR, '/', a, '/', o])).mkdir(parents=True, exist_ok=True)
+    for h in heuristics:
+        Path("".join([OUTPUT_DIR, '/', 'astr', '/', h])).mkdir(parents=True, exist_ok=True)
+        Path("".join([STATISTICS_DIR, '/', 'astr', '/', h])).mkdir(parents=True, exist_ok=True)
 
 
 def calc(algo: str, file: str) -> None:
@@ -26,6 +30,14 @@ def calc(algo: str, file: str) -> None:
         stat = "".join([STATISTICS_DIR, '/', algo, '/', o, '/', file])
         in_ = "".join([PUZZLE_DIR, '/', file])
         solve([algo, o, in_, out, stat])
+
+
+def calcAstr(algo: str, file: str) -> None:
+    for h in heuristics:
+        out = "".join([OUTPUT_DIR, '/', algo, '/', h, '/', file])
+        stat = "".join([STATISTICS_DIR, '/', algo, '/', h, '/', file])
+        in_ = "".join([PUZZLE_DIR, '/', file])
+        solve([algo, h, in_, out, stat])
 
 
 if __name__ == '__main__':
