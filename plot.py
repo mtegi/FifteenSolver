@@ -2,6 +2,7 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+algorithms = ["astr", "bfs"]
 search_orders = ["rdul", "rdlu", "drul", "drlu", "ludr", "lurd", "uldr", "ulrd"]
 heuristics = ["hamm", "manh"]
 levels = [1, 2, 3, 4, 5, 6, 7]
@@ -41,6 +42,33 @@ def createDictionary(strategies):
     return dictionary
 
 
+def createGeneralDictionary(dict_dict):
+    dictionary = dict.fromkeys(levels)
+    for level in dictionary:
+        dictionary[level] = dict.fromkeys(algorithms)
+        for algorithm in dictionary[level]:
+            dictionary[level][algorithm] = dict.fromkeys(data_categories)
+            for data_category in dictionary[level][algorithm]:
+                dictionary[level][algorithm][data_category] = \
+                    calculateGeneralMean(dict_dict[algorithm], level, data_category)
+    return dictionary
+
+
+def calculateGeneralMean(dictionary, level, data_category):
+    mean_arr = [];
+    for strategy in dictionary:
+        mean_arr.extend(dictionary[strategy][level][data_category]["data"])
+    return np.mean(mean_arr)
+
+
+def printGeneralDict(dictionary):
+    for level in dictionary:
+        for algorithm in dictionary[level]:
+            for data_category in dictionary[level][algorithm]:
+                print("mean for " + str(level) + "|" + algorithm + "|" + data_category)
+                print(dictionary[level][algorithm][data_category])
+
+
 def readData(dictionary, datafolder):
     for strategy in os.listdir(datafolder):
         path = datafolder + "/" + strategy
@@ -71,6 +99,11 @@ astr = createDictionary(heuristics)
 readData(astr, STATISTICS_ASTR)
 calculateMean(astr)
 printDict(astr)
+
+masterDict = {"bfs": bfs, "astr": astr}
+
+generalDict = createGeneralDictionary(masterDict)
+printGeneralDict(generalDict)
 
 # data to plot
 n_groups = 4
