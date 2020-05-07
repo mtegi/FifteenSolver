@@ -16,6 +16,8 @@ class AStar(SearchAlgorithm):
         while not self.frontier.empty():
             self.state = self.frontier.get()[1]
             self.processed += 1
+            if self.max_depth < self.state.depth:
+                self.max_depth = self.state.depth
             for direction in self.search_order:
                 if can_move(self.state, direction) and is_not_back_move(self.state, direction):
                     neighbour = generate_new_state(self.state, direction)
