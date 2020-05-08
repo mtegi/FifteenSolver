@@ -1,3 +1,4 @@
+import math
 import os
 import numpy as np
 import matplotlib.pyplot as plt
@@ -117,15 +118,127 @@ def createTimePlot(data, title, scale):
         plt.bar(ind + width * bar, mean_arr, width, label=data_type)
         bar += 1
 
-    plt.ylabel('Czas')
-    plt.xlabel('Glebokosc')
+    plt.ylabel("średni czas rozwiązania [ms]")
+    plt.xlabel('głębokość rozwiązania')
     plt.title(title)
 
     plt.xticks(ind + width * bar / 2, levels)
     plt.legend(loc='best')
     plt.yscale(scale)
+    plt.savefig('./plots/' + title)
+    plt.close()
 
-    plt.show()
+
+def createResLenghtPlot(data, title, scale):
+    width = 0.1
+    plt.grid()
+    ind = np.arange(7)
+    bar = 1
+    max_data = []
+    min_data = []
+
+    for data_type in data:
+        mean_arr = []
+        for level in data[data_type]:
+            mean_arr.append(data[data_type][level]["res_len"]["mean"])
+        plt.bar(ind + width * bar, mean_arr, width, label=data_type)
+        bar += 1
+        max_data.append(int(max(mean_arr)))
+        min_data.append(int(max(mean_arr)))
+
+    plt.ylabel("średnia długość odnalezionego rozwiązania")
+    plt.xlabel('głębokość rozwiązania')
+    plt.title(title)
+    plt.xticks(ind + width * bar / 2, levels)
+    plt.legend(loc='best')
+    plt.yscale(scale)
+    yint = range(0, math.ceil(max(max_data)) + 1)
+    plt.yticks(yint)
+    plt.savefig('./plots/' + title)
+    plt.close()
+
+
+def createVisitedPlot(data, title, scale):
+    width = 0.1
+    plt.grid()
+    ind = np.arange(7)
+    bar = 1
+    max_data = []
+    min_data = []
+
+    for data_type in data:
+        mean_arr = []
+        for level in data[data_type]:
+            mean_arr.append(data[data_type][level]["visited_states"]["mean"])
+        plt.bar(ind + width * bar, mean_arr, width, label=data_type)
+        bar += 1
+        max_data.append(int(max(mean_arr)))
+        min_data.append(int(max(mean_arr)))
+
+    plt.ylabel("Średnia liczba stanów odwiedzonych")
+    plt.xlabel('głębokość rozwiązania')
+    plt.title(title)
+    plt.xticks(ind + width * bar / 2, levels)
+    plt.legend(loc='best')
+    plt.yscale(scale)
+    plt.savefig('./plots/' + title)
+    plt.close()
+
+
+def createComputedPlot(data, title, scale):
+    width = 0.1
+    plt.grid()
+    ind = np.arange(7)
+    bar = 1
+    max_data = []
+    min_data = []
+
+    for data_type in data:
+        mean_arr = []
+        for level in data[data_type]:
+            mean_arr.append(data[data_type][level]["computed_states"]["mean"])
+        plt.bar(ind + width * bar, mean_arr, width, label=data_type)
+        bar += 1
+        max_data.append(int(max(mean_arr)))
+        min_data.append(int(max(mean_arr)))
+
+    plt.ylabel("Średnia liczba stanów przetworzonych")
+    plt.xlabel('głębokość rozwiązania')
+    plt.title(title)
+    plt.xticks(ind + width * bar / 2, levels)
+    plt.legend(loc='best')
+    plt.yscale(scale)
+    plt.savefig('./plots/' + title)
+    plt.close()
+
+
+def createMaxDepthPlot(data, title, scale):
+    width = 0.1
+    plt.grid()
+    ind = np.arange(7)
+    bar = 1
+    max_data = []
+    min_data = []
+
+    for data_type in data:
+        mean_arr = []
+        for level in data[data_type]:
+            mean_arr.append(data[data_type][level]["max_depth"]["mean"])
+        plt.bar(ind + width * bar, mean_arr, width, label=data_type)
+        bar += 1
+        max_data.append(int(max(mean_arr)))
+        min_data.append(int(max(mean_arr)))
+
+    plt.ylabel("Średnia maksymalnie osiągnięta głębokość")
+    plt.xlabel('głębokość rozwiązania')
+    plt.title(title)
+    plt.xticks(ind + width * bar / 2, levels)
+    plt.legend(loc='best')
+    yint = range(0, math.ceil(max(max_data)) + 1)
+    plt.yscale(scale)
+    plt.yticks(yint)
+    plt.savefig('./plots/' + title)
+    plt.close()
 
 
 bfs = createDictionary(search_orders)
@@ -151,5 +264,27 @@ printGeneralDict(generalDict)
 print(dfs_err)
 print(dfs_err.__len__())
 
+createTimePlot(generalDict, "Czas rozwiązania - wszystkie algorytmy", 'log')
+createTimePlot(bfs, "Czas rozwiązania - bfs", 'linear')
+createTimePlot(dfs, "Czas rozwiązania - dfs", 'log')
+createTimePlot(astr, "Czas rozwiązania - astr", 'linear')
 
-createTimePlot(generalDict, "Wykres czasu", 'log')
+createResLenghtPlot(bfs, "długość rozwiązania - bfs", 'linear')
+createResLenghtPlot(dfs, "długość rozwiązania - dfs", 'linear')
+createResLenghtPlot(astr, "długość rozwiązania - astr", 'linear')
+createResLenghtPlot(generalDict, "długość rozwiązania - wszystkie algorytmy", 'linear')
+
+createVisitedPlot(bfs, "liczba stanów odwiedzonych - bfs", 'linear')
+createVisitedPlot(dfs, "liczba stanów odwiedzonych - dfs", 'log')
+createVisitedPlot(astr, "liczba stanów odwiedzonych - astr", 'linear')
+createVisitedPlot(generalDict, "liczba stanów odwiedzonych - wszystkie algorytmy", 'log')
+
+createComputedPlot(bfs, "liczba stanów przetworzonych - bfs", 'linear')
+createComputedPlot(dfs, "liczba stanów przetworzonych - dfs", 'log')
+createComputedPlot(astr, "liczba stanów przetworzonych - astr", 'linear')
+createComputedPlot(generalDict, "liczba stanów przetworzonych - wszystkie algorytmy", 'log')
+
+createMaxDepthPlot(bfs, "maksymalna osiągnięta głębokość - bfs", 'linear')
+createMaxDepthPlot(dfs, "maksymalna osiągnięta głębokość - dfs", 'linear')
+createMaxDepthPlot(astr, "maksymalna osiągnięta głębokość - astr", 'linear')
+createMaxDepthPlot(generalDict, "maksymalna osiągnięta głębokość - wszystkie algorytmy", 'linear')
