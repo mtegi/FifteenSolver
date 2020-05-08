@@ -40,7 +40,7 @@ cdef manhattan(state):
             if val != 0:
                 val -= 1
                 x = val % state.width
-                y = val % state.height
+                y = val // state.height
                 distance += abs(i - y) + abs(j - x)
     return distance
 
