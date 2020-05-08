@@ -16,6 +16,7 @@ def index(array: np.ndarray, item: int) -> Tuple[int, int]:
 
 
 cpdef solve(args):
+
     cdef str algo = str(args[0])
     cdef str param = str(args[1]).lower()
     cdef str input_file = str(args[2])
@@ -46,7 +47,17 @@ cpdef solve(args):
         end_time = timer()
     else:
         print('Wrong algorithm')
-    save_to_file(output_file, stats_file, result, get_time(start_time, end_time))
+
+    if result is None:
+        f = open(output_file, 'w')
+        f.write("-1")
+        f.close()
+        f = open(stats_file, 'w')
+        f.write("-1")
+        f.close()
+    else:
+        save_to_file(output_file, stats_file, result, get_time(start_time, end_time))
+
 
 
 cdef float get_time(float start, float end):

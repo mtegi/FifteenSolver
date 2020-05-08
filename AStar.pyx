@@ -15,7 +15,6 @@ class AStar(SearchAlgorithm):
             return self.state.move_set, self.max_depth, 1, 1
         while not self.frontier.empty():
             self.state = self.frontier.get()[1]
-            self.processed += 1
             if self.max_depth < self.state.depth:
                 self.max_depth = self.state.depth
             for direction in self.search_order:
@@ -30,6 +29,7 @@ class AStar(SearchAlgorithm):
                         cost = distance + neighbour.depth
                         self.frontier.put((cost, neighbour))
             self.explored.add(self.state.__hash__())
+            self.processed += 1
 
 cdef manhattan(state):
     cdef int distance, x, y

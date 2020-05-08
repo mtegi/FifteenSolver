@@ -7,7 +7,6 @@ class BFS(SearchAlgorithm):
             return self.state.move_set, self.max_depth, 1, 1
         while self.frontier.__len__() > 0:
             self.state = self.frontier.pop()
-            self.processed += 1
             for direction in self.search_order:
                 if can_move(self.state, direction) and is_not_back_move(self.state, direction):
                     neighbour = generate_new_state(self.state, direction)
@@ -18,3 +17,4 @@ class BFS(SearchAlgorithm):
                         self.visited += 1
                         self.frontier.appendleft(neighbour)
             self.explored.add(self.state.__hash__())
+            self.processed += 1
