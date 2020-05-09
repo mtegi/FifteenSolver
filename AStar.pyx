@@ -6,7 +6,7 @@ from State cimport State
 
 class AStar(SearchAlgorithm):
     def __init__(self, initial_state, heuristic):
-        super().__init__(initial_state, "ludr")
+        super().__init__(initial_state, "rdul")
         self.heuristic = heuristic
         self.frontier = PriorityQueue()
         self.frontier.put((0, initial_state))
@@ -21,6 +21,7 @@ class AStar(SearchAlgorithm):
                 if can_move(self.state, direction) and is_not_back_move(self.state, direction):
                     neighbour = generate_new_state(self.state, direction)
                     if self.is_solution(neighbour):
+                        self.processed += 1
                         self.visited += 1
                         return neighbour.move_set, self.max_depth, self.visited, self.processed
                     elif neighbour.__hash__() not in self.explored:

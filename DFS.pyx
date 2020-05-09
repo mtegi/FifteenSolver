@@ -10,14 +10,9 @@ class DFS(SearchAlgorithm):
         if self.is_solution(self.state):
             return self.state.move_set, self.max_depth, 1, 1
        # dopoki sa stany do
-       # open("logfile.txt", 'w').close()
-       # f = open("logfile.txt", 'w')
         while self.frontier.__len__() > 0:
            # zdejmij stan
             self.state = self.frontier.pop()
-           # f.write(self.state.move_set +" " + str(self.state.depth) + '\n')
-           # f.write(str(self.state.values) + '\n')
-           # f.write(str(self.state.__hash__()) + '\n')
             # sprawdz maks glebokosc
             if self.max_depth < self.state.depth:
                 self.max_depth = self.state.depth
@@ -30,22 +25,14 @@ class DFS(SearchAlgorithm):
                         neighbour = generate_new_state(self.state, direction)
                         if self.is_solution(neighbour):
                             self.visited += 1
-                        #    f.write("----rozwiazanie!" + '\n')
-                        #    f.write("----" + neighbour.move_set + '\n')
+                            self.processed += 1
                             return neighbour.move_set, self.max_depth, self.visited, self.processed
                         elif neighbour.__hash__() not in self.explored:
-                        #    f.write("----nowysasiad!" + '\n')
-                        #    f.write("----" + neighbour.move_set + '\n')
                             self.visited += 1
                             neighbour_arr.insert(0,neighbour)
-                        #elif neighbour.__hash__() in self.explored:
-                        #    f.write("----staaaaarysasiad!" + '\n')
-                        #    f.write("----" + neighbour.move_set + '\n')
-                        #    f.write(str(neighbour.__hash__()) + '\n')
                 self.frontier.extend(neighbour_arr)
                 self.processed += 1
 
-       # f.close()
 
 
 
