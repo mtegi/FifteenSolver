@@ -125,7 +125,7 @@ def createTimePlot(data, title, scale):
     plt.xticks(ind + width * bar / 2, levels)
     plt.legend(loc='best')
     plt.yscale(scale)
-    plt.savefig('./plots/' + title)
+    plt.savefig('./plots/' + title + "_time")
     plt.close()
 
 
@@ -154,7 +154,7 @@ def createResLenghtPlot(data, title, scale):
     plt.yscale(scale)
     yint = range(0, math.ceil(max(max_data)) + 1)
     plt.yticks(yint)
-    plt.savefig('./plots/' + title)
+    plt.savefig('./plots/' + title + "_length")
     plt.close()
 
 
@@ -181,7 +181,7 @@ def createVisitedPlot(data, title, scale):
     plt.xticks(ind + width * bar / 2, levels)
     plt.legend(loc='best')
     plt.yscale(scale)
-    plt.savefig('./plots/' + title)
+    plt.savefig('./plots/' + title + "_visited")
     plt.close()
 
 
@@ -208,7 +208,7 @@ def createComputedPlot(data, title, scale):
     plt.xticks(ind + width * bar / 2, levels)
     plt.legend(loc='best')
     plt.yscale(scale)
-    plt.savefig('./plots/' + title)
+    plt.savefig('./plots/' + title + "_computed")
     plt.close()
 
 
@@ -237,7 +237,7 @@ def createMaxDepthPlot(data, title, scale):
     yint = range(0, math.ceil(max(max_data)) + 1)
     plt.yscale(scale)
     plt.yticks(yint)
-    plt.savefig('./plots/' + title)
+    plt.savefig('./plots/' + title + "_depth")
     plt.close()
 
 
@@ -264,27 +264,27 @@ printGeneralDict(generalDict)
 print(dfs_err)
 print(dfs_err.__len__())
 
-createTimePlot(generalDict, "Czas rozwiązania - wszystkie algorytmy", 'log')
-createTimePlot(bfs, "Czas rozwiązania - bfs", 'linear')
-createTimePlot(dfs, "Czas rozwiązania - dfs", 'log')
-createTimePlot(astr, "Czas rozwiązania - astr", 'linear')
+createTimePlot(generalDict, "wszystkie algorytmy", 'log')
+createTimePlot(bfs, "bfs", 'linear')
+createTimePlot(dfs, "dfs", 'log')
+createTimePlot(astr, "astr", 'linear')
 
-createResLenghtPlot(bfs, "długość rozwiązania - bfs", 'linear')
-createResLenghtPlot(dfs, "długość rozwiązania - dfs", 'linear')
-createResLenghtPlot(astr, "długość rozwiązania - astr", 'linear')
-createResLenghtPlot(generalDict, "długość rozwiązania - wszystkie algorytmy", 'linear')
+createResLenghtPlot(bfs, "bfs", 'linear')
+createResLenghtPlot(dfs, "dfs", 'linear')
+createResLenghtPlot(astr, "astr", 'linear')
+createResLenghtPlot(generalDict, "wszystkie algorytmy", 'linear')
 
-createVisitedPlot(bfs, "liczba stanów odwiedzonych - bfs", 'linear')
-createVisitedPlot(dfs, "liczba stanów odwiedzonych - dfs", 'log')
-createVisitedPlot(astr, "liczba stanów odwiedzonych - astr", 'linear')
-createVisitedPlot(generalDict, "liczba stanów odwiedzonych - wszystkie algorytmy", 'log')
+createVisitedPlot(bfs, "bfs", 'linear')
+createVisitedPlot(dfs, "dfs", 'log')
+createVisitedPlot(astr, "astr", 'linear')
+createVisitedPlot(generalDict, "wszystkie algorytmy", 'log')
 
-createComputedPlot(bfs, "liczba stanów przetworzonych - bfs", 'linear')
-createComputedPlot(dfs, "liczba stanów przetworzonych - dfs", 'log')
-createComputedPlot(astr, "liczba stanów przetworzonych - astr", 'linear')
-createComputedPlot(generalDict, "liczba stanów przetworzonych - wszystkie algorytmy", 'log')
+createComputedPlot(bfs, "bfs", 'linear')
+createComputedPlot(dfs, "dfs", 'log')
+createComputedPlot(astr, "astr", 'linear')
+createComputedPlot(generalDict, "wszystkie algorytmy", 'log')
 
-createMaxDepthPlot(bfs, "maksymalna osiągnięta głębokość - bfs", 'linear')
-createMaxDepthPlot(dfs, "maksymalna osiągnięta głębokość - dfs", 'linear')
-createMaxDepthPlot(astr, "maksymalna osiągnięta głębokość - astr", 'linear')
-createMaxDepthPlot(generalDict, "maksymalna osiągnięta głębokość - wszystkie algorytmy", 'linear')
+createMaxDepthPlot(bfs, "bfs", 'linear')
+createMaxDepthPlot(dfs, "dfs", 'linear')
+createMaxDepthPlot(astr, "astr", 'linear')
+createMaxDepthPlot(generalDict, "wszystkie algorytmy", 'linear')
